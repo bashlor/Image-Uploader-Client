@@ -35,7 +35,7 @@
 
 ## Overview
 
-![screenshot]()
+![screenshot](https://raw.githubusercontent.com/bashlor/image-uploader-client/main/resources/presentation.png)
 
 
 ### Built With
@@ -50,10 +50,17 @@ This application/site was created as a submission to a [DevChallenges](https://d
 
 ## How To Use
 
+Edit the .env file in the root directory and replace the API_URL with the url of the server.
+
+```
+VITE_API_URL=http://localhost:3000
+```
+
+Then execute these commands on a terminal :
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/your-user-name/your-project-name
+$ git clone https://github.com/bashlor/image-uploader-client
 
 # Install dependencies
 $ npm install
