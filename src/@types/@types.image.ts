@@ -1,6 +1,6 @@
 
 
-export type ImageContextType = {
+export type ImageContextInterface = {
     uploadImage: () => void;
     loadImage: (image: ImageResource) => void;
     clearData: () => void;

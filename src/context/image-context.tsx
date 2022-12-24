@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ImageContextType, ImageResource } from '../@types/@types.image';
+import { ImageContextInterface, ImageResource } from '../@types/@types.image';
 import { UploadStatus } from '../@types/@types.image';
 
 interface Props {
@@ -7,8 +7,8 @@ interface Props {
 }
 
 
-
-export const ImageContext = React.createContext<ImageContextType | null>(null);
+//@ts-expect-error dont know how to type this
+export const ImageContext = React.createContext<ImageContextInterface>({});
 
 
 
@@ -19,29 +19,32 @@ const ImageContextProvider: React.FC<Props> = ({ children }) => {
 
 
      function uploadImage(){
-            const fetchParams = {
-                method: 'POST',
-                body: image?.file
-            }
 
-            setStatus(UploadStatus.Uploading)
+      if(image?.file){
 
-            const apiUrl = new URL(`${import.meta.env.VITE_API_URL}/upload`)
+        const formData = new FormData();
+        formData.append('file', image.file);
 
-            fetch(apiUrl.href,fetchParams).then(response => {
-                if(!response.ok){
-                  throw new Error('Something went wrong')
-                }
+        setStatus(UploadStatus.Uploading)
 
-              response.json().then(data => {
-                setStatus(UploadStatus.Uploaded)
-                setResponse(data)
-              })
+        const apiUrl = new URL(`${import.meta.env.VITE_API_URL}/upload`)
 
-            }).catch(error => {
-                setStatus(UploadStatus.Error)
-                setResponse(error)
-            })
+        fetch(apiUrl.href,{ method: 'POST' , body:formData}).then(response => {
+          if(!response.ok){
+            throw new Error('Something went wrong')
+          }
+
+          response.json().then(data => {
+            setStatus(UploadStatus.Uploaded)
+            setResponse(data)
+          })
+
+        }).catch(error => {
+          setStatus(UploadStatus.Error)
+          setResponse(error)
+        })
+      }
+
     }
 
     function loadImage(image:ImageResource){

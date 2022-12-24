@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react"
+import React, { DragEvent, useContext, useRef } from "react";
 import { MdOutlineClose } from "react-icons/md";
 import { UploadStatus } from "../@types/@types.image";
 import { ImageContext } from "../context/image-context";
@@ -12,33 +12,34 @@ export const UploadModal = () => {
     const { loadImage , status , uploadImage ,  image , clearData } = useContext(ImageContext)
 
     const hiddenFileInput = useRef(null);
-    const uploadSection = useRef(null);
 
-    const handleDragEnter = e => {
+
+    const handleDragEnter = (e:DragEvent) => {
         e.preventDefault();
         e.stopPropagation();
       };
-      const handleDragLeave = e => {
+      const handleDragLeave = (e:DragEvent) => {
         e.preventDefault();
         e.stopPropagation();
       };
-      const handleDragOver = e => {
+      const handleDragOver = (e:DragEvent) => {
         e.preventDefault();
         e.stopPropagation();
       };
-      const handleDrop = e => {
+      const handleDrop = (e:DragEvent) => {
         e.preventDefault();
         e.stopPropagation();
         const { files } = e.dataTransfer;
         loadImage({ file: files[0], url: URL.createObjectURL(files[0]) });
       };
 
-      const handleClick = e => {
-        hiddenFileInput.current.click();
+      const handleClick = () => {
+        //@ts-expect-error dont know how to type this
+        hiddenFileInput?.current?.click();
 
       }
 
-      const handleFileUpload = (e) => {
+      const handleFileUpload = (e:any) => {
         const fileObjectURL = URL.createObjectURL(e.target.files[0]);
         loadImage({file:e.target.files[0],url:fileObjectURL})
       }
@@ -47,7 +48,7 @@ export const UploadModal = () => {
         uploadImage()
       }
 
-      const removeImage = (e) => {
+      const removeImage = (e:any) => {
         e.stopPropagation();
         clearData()
       }
@@ -65,7 +66,7 @@ export const UploadModal = () => {
                     onDragLeave={e => handleDragLeave(e)}
                     onClick={handleClick}
                     style={
-                      {backgroundImage: status === UploadStatus.ReadyToBeUploaded ? `url(${image.url})` : 'none',
+                      {backgroundImage: status === UploadStatus.ReadyToBeUploaded ? `url(${image?.url})` : 'none',
                       backgroundSize: 'cover',
                       backgroundRepeat: 'no-repeat',
                      }
@@ -77,7 +78,7 @@ export const UploadModal = () => {
       </div>
       <div>
         {status === UploadStatus.FileNotLoaded &&  
-        <><img className="image-figure" src="./image.svg" />
+        <><img className="image-figure"  alt="figure" src="./image.svg" />
           <p>Drag & Drop your image here</p>
         </>
         }
