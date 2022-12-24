@@ -48,7 +48,7 @@ This application/site was created as a submission to a [DevChallenges](https://d
 
 ## How To Use
 
-Edit the .env file in the root directory and replace the API_URL with the url of the server.
+Rename and edit the .env.example file in the root directory and replace the API_URL with the url of the server.
 
 ```
 VITE_API_URL=http://localhost:3000
