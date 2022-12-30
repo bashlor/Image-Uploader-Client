@@ -13,6 +13,11 @@ export const UploadCompleteModal = () => {
     });
   }
 
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    copyToClipboard();
+    e.target.select();
+  }
+
     return (
         <div className="modal complete-modal">
             <div className="header">
@@ -22,10 +27,13 @@ export const UploadCompleteModal = () => {
                 <h3>Uploaded Successfully!</h3>
             </div>
             <div className="image-overview-section">
+                <a href={link} rel="noreferrer" target="_blank" >
                 <img className="image-overview" src={link} alt="image" />
+                </a>
+  
             </div>
             <div className="link-section">
-                <input type="text" value={link}></input>
+                <input type="text" onFocus={handleFocus} value={link}></input>
             </div>
             <button onClick={copyToClipboard} className="btn link-btn">Copy Link</button>
         </div>
