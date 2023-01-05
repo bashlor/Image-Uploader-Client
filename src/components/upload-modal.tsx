@@ -68,7 +68,7 @@ export const UploadModal = () => {
                     style={
                       {backgroundImage: status === UploadStatus.ReadyToBeUploaded ? `url(${image?.url})` : 'none',
                       backgroundSize: 'cover',
-                      backgroundRepeat: 'no-repeat',
+                      backgroundRepeat: 'no-repeat'
                      }
                     }>
       <div style={{visibility : status === UploadStatus.ReadyToBeUploaded ? 'visible': 'hidden'}} className="remove-icon"
